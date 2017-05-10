@@ -16,9 +16,9 @@ Gelen görüntüyü işleme tabi tutarak belirli bir eşik değerine göre yeni 
 
 Poz hücrelerinden gelen verilere göre hangi konumda olduğuna, hangi yöne baktığına ve nereye gitmesi gerektiğine karar verir.
 
-image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-algo-1.jpeg]
+image::images/image.png[https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-algo-1.jpeg]
 
-image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-algo-2.jpeg]
+image::images/image.png[https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-algo-2.jpeg]
 
 = Kurulum =
 
@@ -130,4 +130,5 @@ rosbag play oxford_newcollege.bag
 
 = Sonuç 
 
-image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-sonuc.jpeg]
+image::images/image.png[https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-sonuc.jpeg]
+
