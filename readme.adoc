@@ -16,7 +16,7 @@ Gelen görüntüyü işleme tabi tutarak belirli bir eşik değerine göre yeni 
 
 Poz hücrelerinden gelen verilere göre hangi konumda olduğuna, hangi yöne baktığına ve nereye gitmesi gerektiğine karar verir.
 
-image::https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-algo-2.jpeg[]
+image::https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-algo-1.jpeg[]
 
 image::https://raw.githubusercontent.com/Taifuru/robotik-openratslam/master/ratslam-algo-2.jpeg[]
 
