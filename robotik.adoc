@@ -1,0 +1,133 @@
+= OpenRatSlam 
+
+RatSLAM, memelilerin beyninin bir parçası olan hipokampusdaki seyirsel süreçlerin hesaplama modellerine dayanan bir SLAM sistemidir. Sistem, poz hücreleri, yerel görüntü hücreleri ve deneyim haritası olmak üzere üç ana modülden oluşur.
+
+== Poz Hücreleri
+
+Yerel görüntü hücrelerinden gelen veriye göre daha önceki verilerle karşılaştırma yaparak konum belirler ve bu bilgileri deneyim haritasına bir ileti içerisinde yollar.
+
+Olası eylemler: (örtük olarak bir önceki düğümden bir kenar oluşturmayı içeren) yeni bir düğüm oluşturmak, mevcut iki düğüm arasında kenar oluşturmak ve ya konumu mevcut bir düğüme ayarlamak. Bu eylem, yeni bir özel ileti, ratslam_ros::TopologicalAction içinde gönderilir.
+
+== Yerel Görüntü Hücreleri
+
+Gelen görüntüyü işleme tabi tutarak belirli bir eşik değerine göre yeni bir görüntü mü yoksa yeni bir görüntü mü olduğuna karar verir. Yeni bir görüntü ise veri tabanına ekler.
+
+== Deneyim Haritası Düğümü
+
+Poz hücrelerinden gelen verilere göre hangi konumda olduğuna, hangi yöne baktığına ve nereye gitmesi gerektiğine karar verir.
+
+image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-algo-1.jpeg]
+
+image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-algo-2.jpeg]
+
+= Kurulum =
+
+Ratslam'in çalıştırılabilmesi için ros kurulu olması gereklidir. Bu kurulumda Ubuntu 14.04 indigo ros kurulu iso üzerinden yapılmıştır.
+
+== Bağımlıklar
+
+OpenRatSLAM Ros paketi olan, opencv2, topological_nav_msgs ve 3D grafik kütüphanesi olan Irrlicht i kullanır.
+
+Bu bağımlıkları Ubuntu'ya apt-get kullanılarak ekleyeceğiz.
+
+[source,java]
+----
+sudo apt-get install libirrlicht-dev
+
+----
+
+[source,java]
+----
+sudo apt-get install libopencv-dev
+
+----
+
+== Yapılandırma Adımları
+
+Ubuntu 14.04 and ROS Indigo üzerinde aşağıdaki adımlar test edilmiştir.
+
+ROS catkin çalışma alanını aşağıdaki kodları yazarak oluşturmamız gerekiyor.
+
+[source,java]
+----
+source /opt/ros/indigo/setup.bash
+mkdir ~/catkin_ws/src
+cd ~/catkin_ws/src
+catkin_init_workspace
+cd..
+catkin_make
+source devel/setup.bash
+----
+
+Son komut gerekli degiskenleri tanımlar ve çalışmamız için gerekli olan alanı oluşturur.
+
+Kaynak kodları git üzerinden çalışma alanına almamız gerekiyor ~/catkin_ws/src:
+
+[source,java]
+----
+cd ~/catkin_ws/src
+
+----
+
+[source,java]
+----
+git clone https://github.com/davidmball/ratslam.git ratslam_ros
+cd ratslam_ros
+git checkout ratslam_ros
+
+----
+
+En son adım catkin kullanarak OpenRatSlam'i yapılandırmak.
+
+[source,java]
+----
+cd ~/catkin_ws
+catkin_make
+
+----
+
+== RatSLAM Çalıştırılması
+
+Hazır verilmiş olan bag dosyları aşağıda bulunmaktadır. Bunlar bizim veri setimizi oluşturacak.
+
+*   Aus
+*   St Lucia
+*   Oxford
+
+Hepsini https://wiki.qut.edu.au/display/cyphy/OpenRatSLAM+datasets[şu] link üzerinden indirebilirsiniz.
+
+İndirdiğiniz veri setlerini OpenRatSLAM kök dizini içerisine atınız.
+
+Aşağıdaki 3 ayrı komut, 3 ayrı dataset için yazılmıştır. Bunlardan herhangi biri algoritmayı çalıştıracaktır.
+
+Not: İlk satırdaki komutu çalıştırdıktan birkaç boş pencere açılacaktır. Daha sonra ikinci satırda bulunan komutla bag dosyasını ratslam'e verip simülasyonu başlatabilirsiniz. Boş pencereler bazı görselleştirmeler ile dolacaktır.
+
+
+[source,java]
+----
+roslaunch ratslam_ros irataus.launch
+rosbag play irat_aus_28112011.bag
+
+----
+
+ya da
+
+[source,java]
+----
+roslaunch ratslam_ros stlucia.launch
+rosbag play stlucia_2007.bag
+
+----
+
+ya da
+
+[source,java]
+----
+roslaunch ratslam_ros oxford_newcollege.launch
+rosbag play oxford_newcollege.bag
+
+----
+
+= Sonuç 
+
+image::images/image.png[https://github.com/Taifuru/robotik-openratslam/blob/master/ratslam-sonuc.jpeg]
